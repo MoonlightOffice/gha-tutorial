@@ -23,7 +23,5 @@ jobs:
           file: cicd.Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args:
-            - GITHUB_WORKSPACE=${{ secrets.GITHUB_WORKSPACE }}
-            - MESSAGE="under world"
+          build-args: GITHUB_WORKSPACE=${{ secrets.GITHUB_WORKSPACE }} MESSAGE="under world"
 
