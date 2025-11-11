@@ -27,4 +27,6 @@ jobs:
           build-args: |
             GITHUB_WORKSPACE=.
             MESSAGE="under world"
+          platforms: |
+            linux/amd64
 
