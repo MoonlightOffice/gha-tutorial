@@ -14,6 +14,10 @@ WORKDIR /src
 # Compile check & cache modules
 RUN go vet ./...
 
+ARG MESSAGE
+RUN echo "Hello, $MESSAGE"
+
+
 ### Run jobs
 
 # Run golang-ci lint 
