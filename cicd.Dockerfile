@@ -17,13 +17,22 @@ RUN go vet ./...
 ### Run jobs
 
 # Run golang-ci lint 
-FROM base
+FROM base AS lint
 RUN golangci-lint run
 
 # Test
-FROM base
+FROM base AS test
 RUN go test -v ./... -race
 
 # Run gofumpt
-FROM base
+FROM base AS format
 RUN gofumpt -l . | diff -u /dev/null -
+
+### Wait parallel exeecution
+
+FROM base
+COPY --from=lint /tmp /tmp
+COPY --from=test /tmp /tmp
+COPY --from=format /tmp /tmp
+
+# docker build -f cicd.Dockerfile --cache-from type=local,src=.cache/ --cache-to type=local,dest=.cache/,mode=max --build-arg GITHUB_WORKSPACE="." --output=type=cacheonly .
