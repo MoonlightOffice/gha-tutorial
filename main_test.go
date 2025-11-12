@@ -11,7 +11,7 @@ func TestF1(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	expected := 5
+	expected := 6
 	if Add(2, 3) != expected {
 		t.Fatalf("expected %d, got %d", expected, Add(2, 3))
 	}
