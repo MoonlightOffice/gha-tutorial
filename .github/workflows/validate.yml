@@ -24,6 +24,8 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Set up Docker
         uses: docker/setup-docker-action@v4
+      - name: List host directory 1
+        run: pwd && ls -lha
       - name: Build with cache
         run: |
           docker build \
@@ -36,3 +38,5 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: List host directory 1
+        run: pwd && ls -lha
