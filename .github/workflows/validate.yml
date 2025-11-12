@@ -26,7 +26,7 @@ jobs:
         uses: docker/setup-docker-action@v4
       - name: Build with cache
         run: |
-          docker build \
+          docker buildx build \
             -f cicd.Dockerfile \
             --cache-from type=local,src=/tmp/.buildx-cache \
             --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max \
