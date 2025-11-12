@@ -15,24 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Cache Docker layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
       - name: Build with cache
-        run: |
-          docker buildx build \
-            -f cicd.Dockerfile \
-            --cache-from type=local,src=/tmp/.buildx-cache \
-            --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max \
-            --build-arg GITHUB_WORKSPACE="." \
-            --output=type=cacheonly .
-      - name: Move new cache into place
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: cicd.Dockerfile
+          build-args: |
+            GITHUB_WORKSPACE=.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          outputs: type=cacheonly
+
