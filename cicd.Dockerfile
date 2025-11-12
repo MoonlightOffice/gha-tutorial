@@ -39,4 +39,4 @@ COPY --from=lint /tmp /tmp
 COPY --from=test /tmp /tmp
 COPY --from=format /tmp /tmp
 
-# docker build -f cicd.Dockerfile --cache-from type=local,src=.cache/ --cache-to type=local,dest=.cache/,mode=max --build-arg GITHUB_WORKSPACE="." --output=type=cacheonly .
+# docker buildx build -f cicd.Dockerfile --cache-from type=local,src=.cache/ --cache-to type=local,dest=.cache/,mode=max --build-arg GITHUB_WORKSPACE="." --output=type=cacheonly .
