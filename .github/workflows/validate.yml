@@ -26,7 +26,7 @@ jobs:
         run: |
           docker buildx build \
             -f cicd.Dockerfile \
-            --cache-from type=gha \
-            --cache-to type=gha,mode=max \
+            --cache-from type=gha,scope=cicd \
+            --cache-to type=gha,mode=max,scope=cicd \
             --build-arg GITHUB_WORKSPACE="." \
             --output=type=cacheonly .
